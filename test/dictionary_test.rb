@@ -8,5 +8,8 @@ class DictionaryTest < Minitest::Test
     dictionary = Dictionary.new
 
     assert_instance_of Dictionary, dictionary
+    assert_equal Hash, dictionary.letter_equivalents.class
+    assert_equal 27, dictionary.letter_equivalents.size
+    assert_equal '.0\n0.\n..', dictionary.letter_equivalents['z']
   end
 end
