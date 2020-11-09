@@ -6,10 +6,10 @@ english_handle.close
 
 puts "Created '#{ARGV[1]}' containing #{english_text.size - 1} characters"
 
-# capitalized_text = incoming_text.upcase
-#
-# writer = File.open(ARGV[1], "w")
-#
-# writer.write(capitalized_text)
-#
-# writer.close
+braille_text = english_text#translate method here
+
+braille_handle = File.open(ARGV[1], "w")
+
+braille_handle.write(braille_text)
+
+braille_handle.close
