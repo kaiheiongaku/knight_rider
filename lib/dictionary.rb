@@ -36,4 +36,24 @@ class Dictionary
   def convert(letter)
     @letter_equivalents[letter]
   end
+
+  def translate(message)
+    translation_array = []
+    message.each_char do |character|
+      translation_array << convert(character)
+    end
+    braille_split_by_line = translation_array.map do |braille_character|
+      braille_character.split("\n")
+    end
+    top_row = braille_split_by_line.map do |character_set|
+      character_set.first
+    end
+    middle_row = braille_split_by_line.map do |character_set|
+      character_set[1]
+    end
+    bottom_row = braille_split_by_line.map do |character_set|
+      character_set.last
+    end
+    top_row.join + "\n" + middle_row.join + "\n" + bottom_row.join
+  end
 end

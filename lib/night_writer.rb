@@ -7,7 +7,7 @@ english_text = english_handle.read
 
 english_handle.close
 
-braille_text = dictionary.convert(english_text.chomp)
+braille_text = dictionary.translate(english_text.chomp)
 
 braille_handle = File.open(ARGV[1], "w")
 
