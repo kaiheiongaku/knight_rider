@@ -12,4 +12,10 @@ class DictionaryTest < Minitest::Test
     assert_equal 27, dictionary.letter_equivalents.size
     assert_equal '.0\n0.\n..', dictionary.letter_equivalents['z']
   end
+
+  def test_convert
+    dictionary = Dictionary.new
+
+    assert_equal '.0\n0.\n..', dictionary.convert('z')
+  end
 end
