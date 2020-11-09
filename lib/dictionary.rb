@@ -33,4 +33,7 @@ class Dictionary
     }
   end
 
+  def convert(letter)
+    @letter_equivalents[letter]
+  end
 end
