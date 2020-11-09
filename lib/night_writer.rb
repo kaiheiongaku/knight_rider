@@ -4,7 +4,7 @@ english_text = english_handle.read
 
 english_handle.close
 
-puts "Created '#{ARGV[1]}' containing #{english_text.size} characters"
+puts "Created '#{ARGV[1]}' containing #{english_text.size - 1} characters"
 
 # capitalized_text = incoming_text.upcase
 #
