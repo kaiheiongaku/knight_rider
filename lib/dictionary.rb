@@ -71,4 +71,11 @@ class Dictionary
   def convert_from_braille(letter)
     @letter_equivalents.key(letter)
   end
+
+  def split_braille_lines(message)
+    message.split("\n")
+  end
+
+  # def convert_multiple_letters_from_braille(message)
+
 end
