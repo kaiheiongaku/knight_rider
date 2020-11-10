@@ -62,4 +62,9 @@ class Dictionary
   end
 
   def translate_with_split(message)
+    translation = split_at_40_characters(message).map do |forty_character_chunk|
+      translate(forty_character_chunk)
+    end
+    translation.join("\n")
+  end
 end

@@ -37,4 +37,11 @@ class DictionaryTest < Minitest::Test
     expected = ["abcdefghijklmnopqrstuvwxyzabcdefghijklmn", "opqrstuvwxyzabcdefghijklmnopqrstuvwxyzab", "cdefghijklmnopqrstuvwxyz"]
     assert_equal expected, dictionary.split_at_40_characters(message)
   end
+
+  def test_translate_with_split
+    dictionary = Dictionary.new
+    message =  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    expected = ".0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0\n00000000000000000000000000000000000000000000000000000000000000000000000000000000\n00000000000000000000000000000000000000000000000000000000000000000000000000000000\n.0\n00\n00"
+    assert_equal expected, dictionary.translate_with_split(message)
+  end
 end
