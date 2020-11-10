@@ -25,4 +25,16 @@ class DictionaryTest < Minitest::Test
     expected = ".0.0....\n00.0..00\n0000..00"
     assert_equal expected, dictionary.translate("ab c")
   end
+
+  def test_it_can_split_messages_at_40_characters
+    dictionary = Dictionary.new
+
+    message = "i am the king of the forest harumf harumf"
+    expected = ["i am the king of the forest harumf harum", "f"]
+    assert_equal expected, dictionary.split_at_40_characters(message)
+
+    message = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+    expected = ["abcdefghijklmnopqrstuvwxyzabcdefghijklmn", "opqrstuvwxyzabcdefghijklmnopqrstuvwxyzab", "cdefghijklmnopqrstuvwxyz"]
+    assert_equal expected, dictionary.split_at_40_characters(message)
+  end
 end

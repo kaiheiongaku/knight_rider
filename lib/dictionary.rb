@@ -56,4 +56,10 @@ class Dictionary
     end
     top_row.join + "\n" + middle_row.join + "\n" + bottom_row.join
   end
+
+  def split_at_40_characters(message)
+    message.scan(/.{1,40}/)
+  end
+
+  def translate_with_split(message)
 end
