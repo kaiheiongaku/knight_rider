@@ -72,6 +72,10 @@ class Dictionary
     @letter_equivalents.key(letter)
   end
 
+  def split_braille_by_block(message)
+    message.delete("\n").scan(/.{1,240}/)
+  end
+
   def split_braille_by_lines(message)
     message.split("\n")
   end
@@ -82,12 +86,10 @@ class Dictionary
     end
   end
 
-  # def assemble_braille_letters
-  #   array_of_lines = split_braille_lines
-  #   x = 0
-  #   y = 1
-  #   while array_of_lines[0].size != 0
-  #
+  def assemble_braille_letters(letter_pieces_array)
+    letter_pieces_array
+  end
+
 
 
   # def convert_multiple_letters_from_braille(message)
