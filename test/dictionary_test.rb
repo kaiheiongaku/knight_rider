@@ -52,4 +52,16 @@ class DictionaryTest < Minitest::Test
     actual = @dictionary.convert_from_braille(braille_message)
     assert_equal "i", actual
   end
+
+  def test_split_braille_lines
+    letters = ".0.0\n0.0.\n...."
+    actual = @dictionary.split_braille_lines(letters)
+    assert_equal [".0.0", "0.0.", "...."], actual
+  end
+
+  # def test_convert_multiple_letters_from_braille
+  #   braille_message = ".0.0\n0.0.\n...."
+  #   actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
+  #   assert_equal "ii", actual
+  # end
 end
