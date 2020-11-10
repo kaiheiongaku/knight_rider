@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/dictionary'
+require 'mocha/minitest'
 
 class DictionaryTest < Minitest::Test
 
@@ -53,13 +54,21 @@ class DictionaryTest < Minitest::Test
     assert_equal "i", actual
   end
 
-  def test_split_braille_lines
+  def test_split_braille_by_lines
     letters = ".0.0\n0.0.\n...."
-    actual = @dictionary.split_braille_lines(letters)
+    actual = @dictionary.split_braille_by_lines(letters)
     assert_equal [".0.0", "0.0.", "...."], actual
   end
 
+  def test_split_lines_by_character_part
+    letters = ".0.0\n0.0.\n...."
+    expected = [[".0", ".0"], ["0.", "0."], ["..", ".."]]
+    actual = @dictionary.split_lines_by_character_part(letters)
+    assert_equal expected, actual
+  end
+
   def test_assemble_braille_letters
+    skip
     letters = [".0.0", "0.0.", "...."]
     expected = [".0\n0.\n..", ".0\n0.\n.."]
     actual = @dictionary.assemble_braille_letters(letters)
