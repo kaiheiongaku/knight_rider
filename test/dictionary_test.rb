@@ -43,5 +43,9 @@ class DictionaryTest < Minitest::Test
     message =  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     expected = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n.."
     assert_equal expected, dictionary.translate_with_split(message)
+
+    message = "aa"
+    expected = "0.0.\n....\n...."
+    assert_equal expected, dictionary.translate_with_split(message)
   end
 end
