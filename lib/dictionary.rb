@@ -33,7 +33,7 @@ class Dictionary
     }
   end
 
-  def convert(letter)
+  def convert(letter)#add convert to braille and be sure to change in tests
     @letter_equivalents[letter]
   end
 
@@ -66,5 +66,9 @@ class Dictionary
       translate(forty_character_chunk)
     end
     translation.join("\n")
+  end
+
+  def convert_from_braille(letter)
+    @letter_equivalents.key(letter)
   end
 end
