@@ -71,4 +71,39 @@ class Dictionary
   def convert_from_braille(letter)
     @letter_equivalents.key(letter)
   end
+
+  def split_braille_by_block(message)
+    message.delete("\n").scan(/.{1,240}/)
+  end
+
+  def split_braille_by_lines(block)
+    block.split("\n")
+  end
+
+  def split_lines_by_character_part(letters)
+    split_braille_by_lines(letters).map do |line|
+      line.scan(/.{2}/)
+    end
+  end
+
+  def assemble_braille_letters(block)
+    n = 0
+    assembly_array = []
+    while assembly_array.size < split_lines_by_character_part(block)[0].size
+      character_assembly = split_lines_by_character_part(block).map do |line|
+        line[n]
+      end
+      assembly_array << character_assembly
+      n += 1
+    end
+    assembly_array.flat_map do |character_parts|
+      character_parts.join("\n")
+    end
+  end
+
+  def convert_multiple_letters_from_braille(message)
+    assemble_braille_letters(message).map do |letter|
+      convert_from_braille(letter)
+    end.join
+  end
 end
