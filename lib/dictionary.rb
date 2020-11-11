@@ -116,8 +116,7 @@ class Dictionary
 
   def convert_multiple_lines_from_braille(message)
     split_braille_by_block(message).map do |block|
-      require "pry"; binding.pry
       convert_multiple_letters_from_braille(block)
-    end
+    end.join
   end
 end
