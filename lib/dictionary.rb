@@ -45,20 +45,22 @@ class Dictionary
     translation_array
   end
 
-  def translate(message)
-
-    braille_split_by_line = translation_array.map do |braille_character|
+  def braille_split_by_line(message)
+    convert_multiple_letters_to_braille(message).map do |braille_character|
       braille_character.split("\n")
     end
-    top_row = braille_split_by_line.map do |character_set|
-      character_set.first
+  end
+
+  def braille_by_row(message, row_number)
+    braille_split_by_line(message).map do |character_set|
+      character_set[row_number]
     end
-    middle_row = braille_split_by_line.map do |character_set|
-      character_set[1]
-    end
-    bottom_row = braille_split_by_line.map do |character_set|
-      character_set.last
-    end
+  end
+
+  def translate(message)
+    top_row    = braille_by_row(message, 0)
+    middle_row = braille_by_row(message, 1)
+    bottom_row = braille_by_row(message, 2)
     top_row.join + "\n" + middle_row.join + "\n" + bottom_row.join
   end
 

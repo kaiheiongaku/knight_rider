@@ -26,6 +26,20 @@ class DictionaryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_braille_split_by_line
+    message = "ab c"
+    expected =  [["0.", "..", ".."], ["0.", "0.", ".."], ["..", "..", ".."], ["00", "..", ".."]]
+    actual = @dictionary.braille_split_by_line(message)
+    assert_equal expected, actual
+  end
+
+  def test_braille_by_row
+    message = "ab c"
+    expected = ["..", "0.", "..", ".."]
+    actual = @dictionary.braille_by_row(message, 1)
+    assert_equal expected, actual
+  end
+
   def test_translate
     expected = "0.0...00\n..0.....\n........"
     assert_equal expected, @dictionary.translate("ab c")
