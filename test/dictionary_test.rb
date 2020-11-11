@@ -81,9 +81,9 @@ class DictionaryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  # def test_convert_multiple_letters_from_braille
-  #   braille_message = ".0.0\n0.0.\n...."
-  #   actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
-  #   assert_equal "ii", actual
-  # end
+  def test_convert_multiple_letters_from_braille
+    braille_message = ".0.0\n0.0.\n...."
+    actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
+    assert_equal "ii", actual
+  end
 end
