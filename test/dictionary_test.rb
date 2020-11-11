@@ -1,7 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/dictionary'
-require 'mocha/minitest'
+
 
 class DictionaryTest < Minitest::Test
 
@@ -56,7 +55,7 @@ class DictionaryTest < Minitest::Test
 
   def test_split_braille_by_block
     message = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n.."
-    expected = ["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.................................................................................................................................................................", "0....."]
+    expected = ["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................", "0.\n..\n.."]
     actual = @dictionary.split_braille_by_block(message)
     assert_equal expected, actual
   end
@@ -85,5 +84,12 @@ class DictionaryTest < Minitest::Test
     braille_message = ".0.0\n0.0.\n...."
     actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
     assert_equal "ii", actual
+  end
+
+  def test_convert_multiple_lines_from_braille
+    message = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n.."
+    expected = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    actual = @dictionary.convert_multiple_lines_from_braille(message)
+    assert_equal expected, actual
   end
 end

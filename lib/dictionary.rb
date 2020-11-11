@@ -15,13 +15,13 @@ class Dictionary
       "i" => ".0\n0.\n..",
       "j" => ".0\n00\n..",
       "k" => "0.\n..\n0.",
-      "l" => "0.\n.0\n0.",
+      "l" => "0.\n0.\n0.",
       "m" => "00\n..\n0.",
       "n" => "00\n.0\n0.",
       "o" => "0.\n.0\n0.",
       "p" => "00\n0.\n0.",
       "q" => "00\n00\n0.",
-      "r" => ".0\n00\n0.",
+      "r" => "0.\n00\n0.",
       "s" => ".0\n0.\n0.",
       "t" => ".0\n00\n0.",
       "u" => "0.\n..\n00",
@@ -73,7 +73,14 @@ class Dictionary
   end
 
   def split_braille_by_block(message)
-    message.delete("\n").scan(/.{1,240}/)
+    block_array = []
+    countdown = message
+    until countdown.size == 0
+      block_array << message.slice!(0..242)
+    end
+    block_array.map do |block|
+      block.chomp
+    end
   end
 
   def split_braille_by_lines(block)
@@ -104,6 +111,12 @@ class Dictionary
   def convert_multiple_letters_from_braille(message)
     assemble_braille_letters(message).map do |letter|
       convert_from_braille(letter)
+    end.join
+  end
+
+  def convert_multiple_lines_from_braille(message)
+    split_braille_by_block(message).map do |block|
+      convert_multiple_letters_from_braille(block)
     end.join
   end
 end
