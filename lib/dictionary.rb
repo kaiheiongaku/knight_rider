@@ -57,7 +57,7 @@ class Dictionary
     end
   end
 
-  def translate(message)
+  def micro_translate(message)
     top_row    = braille_by_row(message, 0)
     middle_row = braille_by_row(message, 1)
     bottom_row = braille_by_row(message, 2)
@@ -68,15 +68,20 @@ class Dictionary
     message.scan(/.{1,40}/)
   end
 
-  def translate_with_split(message)
-    translation = split_at_40_characters(message).map do |forty_character_chunk|
-      translate(forty_character_chunk)
-    end
-    translation.join("\n")
+  def macro_translate(message)
+    split_at_40_characters(message).map do |forty_character_chunk|
+      micro_translate(forty_character_chunk)
+    end.join("\n")
   end
 
   def convert_from_braille(letter)
     @letter_equivalents.key(letter)
+  end
+
+  def chomp_the_blocks(blocks)
+    blocks.map do |block|
+      block.chomp
+    end
   end
 
   def split_braille_by_block(message)
@@ -85,9 +90,7 @@ class Dictionary
     until countdown.size == 0
       block_array << message.slice!(0..242)
     end
-    block_array.map do |block|
-      block.chomp
-    end
+    chomp_the_blocks(block_array)
   end
 
   def split_braille_by_lines(block)

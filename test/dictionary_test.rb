@@ -40,9 +40,11 @@ class DictionaryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_translate
+  def test_micro_translate
+    message = "ab c"
     expected = "0.0...00\n..0.....\n........"
-    assert_equal expected, @dictionary.translate("ab c")
+    actual = @dictionary.micro_translate(message)
+    assert_equal expected, actual
   end
 
   def test_it_can_split_messages_at_40_characters
@@ -55,20 +57,27 @@ class DictionaryTest < Minitest::Test
     assert_equal expected, @dictionary.split_at_40_characters(message)
   end
 
-  def test_translate_with_split
+  def test_macro_translate
     message =  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     expected = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n.."
-    assert_equal expected, @dictionary.translate_with_split(message)
+    assert_equal expected, @dictionary.macro_translate(message)
 
     message = "aa"
     expected = "0.0.\n....\n...."
-    assert_equal expected, @dictionary.translate_with_split(message)
+    assert_equal expected, @dictionary.macro_translate(message)
   end
 
   def test_convert_from_braille
     braille_message = ".0\n0.\n.."
     actual = @dictionary.convert_from_braille(braille_message)
     assert_equal "i", actual
+  end
+
+  def test_chomp_the_blocks
+    blocks = ["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n", "0.\n..\n.."]
+    expected = ["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................", "0.\n..\n.."]
+    actual = @dictionary.chomp_the_blocks(blocks)
+    assert_equal expected, actual
   end
 
   def test_split_braille_by_block
