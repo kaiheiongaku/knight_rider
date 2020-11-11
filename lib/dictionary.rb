@@ -101,8 +101,9 @@ class Dictionary
     end
   end
 
-
-
-  # def convert_multiple_letters_from_braille(message)
-
+  def convert_multiple_letters_from_braille(message)
+    assemble_braille_letters(message).map do |letter|
+      convert_from_braille(letter)
+    end.join
+  end
 end
