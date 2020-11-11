@@ -15,9 +15,8 @@ class DictionaryTest < Minitest::Test
     assert_equal "0.\n.0\n00", @dictionary.letter_equivalents['z']
   end
 
-  def test_convert
-
-    assert_equal "0.\n.0\n00", @dictionary.convert("z")
+  def test_convert_to_braille
+    assert_equal "0.\n.0\n00", @dictionary.convert_to_braille("z")
   end
 
   def test_translate
