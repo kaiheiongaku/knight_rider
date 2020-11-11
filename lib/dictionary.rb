@@ -37,11 +37,16 @@ class Dictionary
     @letter_equivalents[letter]
   end
 
-  def translate(message)
+  def convert_multiple_letters_to_braille(message)
     translation_array = []
     message.each_char do |character|
       translation_array << convert_to_braille(character)
     end
+    translation_array
+  end
+
+  def translate(message)
+
     braille_split_by_line = translation_array.map do |braille_character|
       braille_character.split("\n")
     end

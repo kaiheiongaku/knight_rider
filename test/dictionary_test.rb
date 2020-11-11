@@ -19,14 +19,19 @@ class DictionaryTest < Minitest::Test
     assert_equal "0.\n.0\n00", @dictionary.convert_to_braille("z")
   end
 
-  def test_translate
+  def test_convert_multiple_letters_to_braille
+    message = "ab c"
+    actual = @dictionary.convert_multiple_letters_to_braille(message)
+    expected = ["0.\n..\n..", "0.\n0.\n..", "..\n..\n..", "00\n..\n.."]
+    assert_equal expected, actual
+  end
 
+  def test_translate
     expected = "0.0...00\n..0.....\n........"
     assert_equal expected, @dictionary.translate("ab c")
   end
 
   def test_it_can_split_messages_at_40_characters
-
     message = "i am the king of the forest harumf harumf"
     expected = ["i am the king of the forest harumf harum", "f"]
     assert_equal expected, @dictionary.split_at_40_characters(message)
