@@ -8,7 +8,7 @@ braille_text = braille_handle.read
 
 braille_handle.close
 
-english_text = dictionary.convert_multiple_letters_from_braille(braille_text.chomp)
+english_text = dictionary.convert_multiple_lines_from_braille(braille_text.chomp)
 
 english_handle = File.open(ARGV[1], "w")
 
