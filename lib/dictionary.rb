@@ -73,7 +73,14 @@ class Dictionary
   end
 
   def split_braille_by_block(message)
-    message.delete("\n").scan(/.{1,240}/)
+    block_array = []
+    countdown = message
+    until countdown.size == 0
+      block_array << message.slice!(0..242)
+    end
+    block_array.map do |block|
+      block.chomp
+    end
   end
 
   def split_braille_by_lines(block)
@@ -105,5 +112,12 @@ class Dictionary
     assemble_braille_letters(message).map do |letter|
       convert_from_braille(letter)
     end.join
+  end
+
+  def convert_multiple_lines_from_braille(message)
+    split_braille_by_block(message).map do |block|
+      require "pry"; binding.pry
+      convert_multiple_letters_from_braille(block)
+    end
   end
 end
