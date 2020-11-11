@@ -1,7 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/dictionary'
-require 'mocha/minitest'
+
 
 class DictionaryTest < Minitest::Test
 
