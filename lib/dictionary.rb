@@ -103,7 +103,7 @@ class Dictionary
     end
   end
 
-  def assemble_braille_letters(block)
+  def extract_braille_letter_parts(block)
     n = 0
     assembly_array = []
     while assembly_array.size < split_lines_by_character_part(block)[0].size
@@ -113,7 +113,11 @@ class Dictionary
       assembly_array << character_assembly
       n += 1
     end
-    assembly_array.flat_map do |character_parts|
+    assembly_array
+  end
+
+  def assemble_braille_letters(block)
+    extract_braille_letter_parts(block).flat_map do |character_parts|
       character_parts.join("\n")
     end
   end

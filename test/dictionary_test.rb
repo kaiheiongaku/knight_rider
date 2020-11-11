@@ -100,6 +100,13 @@ class DictionaryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_extract_braille_letter_parts
+    block = ".0.0\n0.0.\n...."
+    expected = [[".0", "0.", ".."], [".0", "0.", ".."]]
+    actual = @dictionary.extract_braille_letter_parts(block)
+    assert_equal expected, actual
+  end
+
   def test_assemble_braille_letters
     letters = ".0.0\n0.0.\n...."
     expected = [".0\n0.\n..", ".0\n0.\n.."]
@@ -108,8 +115,8 @@ class DictionaryTest < Minitest::Test
   end
 
   def test_convert_multiple_letters_from_braille
-    braille_message = ".0.0\n0.0.\n...."
-    actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
+    message = ".0.0\n0.0.\n...."
+    actual = @dictionary.convert_multiple_letters_from_braille(message)
     assert_equal "ii", actual
   end
 
@@ -118,5 +125,9 @@ class DictionaryTest < Minitest::Test
     expected = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     actual = @dictionary.convert_multiple_lines_from_braille(message)
     assert_equal expected, actual
+
+    message = ".0.0\n0.0.\n...."
+    actual = @dictionary.convert_multiple_lines_from_braille(message)
+    assert_equal "ii", actual
   end
 end
