@@ -85,4 +85,11 @@ class DictionaryTest < Minitest::Test
     actual = @dictionary.convert_multiple_letters_from_braille(braille_message)
     assert_equal "ii", actual
   end
+
+  def test_convert_multiple_lines_from_braille
+    message = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n.."
+    expected = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    actual = @dictionary.convert_multiple_lines_from_braille(message)
+    assert_equal expected, actual
+  end
 end
