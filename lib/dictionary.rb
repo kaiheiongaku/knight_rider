@@ -33,27 +33,34 @@ class Dictionary
     }
   end
 
-  def convert(letter)#add convert to braille and be sure to change in tests
+  def convert_to_braille(letter)
     @letter_equivalents[letter]
   end
 
-  def translate(message)
+  def convert_multiple_letters_to_braille(message)
     translation_array = []
     message.each_char do |character|
-      translation_array << convert(character)
+      translation_array << convert_to_braille(character)
     end
-    braille_split_by_line = translation_array.map do |braille_character|
+    translation_array
+  end
+
+  def braille_split_by_line(message)
+    convert_multiple_letters_to_braille(message).map do |braille_character|
       braille_character.split("\n")
     end
-    top_row = braille_split_by_line.map do |character_set|
-      character_set.first
+  end
+
+  def braille_by_row(message, row_number)
+    braille_split_by_line(message).map do |character_set|
+      character_set[row_number]
     end
-    middle_row = braille_split_by_line.map do |character_set|
-      character_set[1]
-    end
-    bottom_row = braille_split_by_line.map do |character_set|
-      character_set.last
-    end
+  end
+
+  def micro_translate(message)
+    top_row    = braille_by_row(message, 0)
+    middle_row = braille_by_row(message, 1)
+    bottom_row = braille_by_row(message, 2)
     top_row.join + "\n" + middle_row.join + "\n" + bottom_row.join
   end
 
@@ -61,15 +68,20 @@ class Dictionary
     message.scan(/.{1,40}/)
   end
 
-  def translate_with_split(message)
-    translation = split_at_40_characters(message).map do |forty_character_chunk|
-      translate(forty_character_chunk)
-    end
-    translation.join("\n")
+  def macro_translate(message)
+    split_at_40_characters(message).map do |forty_character_chunk|
+      micro_translate(forty_character_chunk)
+    end.join("\n")
   end
 
   def convert_from_braille(letter)
     @letter_equivalents.key(letter)
+  end
+
+  def chomp_the_blocks(blocks)
+    blocks.map do |block|
+      block.chomp
+    end
   end
 
   def split_braille_by_block(message)
@@ -78,9 +90,7 @@ class Dictionary
     until countdown.size == 0
       block_array << message.slice!(0..242)
     end
-    block_array.map do |block|
-      block.chomp
-    end
+    chomp_the_blocks(block_array)
   end
 
   def split_braille_by_lines(block)
@@ -93,7 +103,7 @@ class Dictionary
     end
   end
 
-  def assemble_braille_letters(block)
+  def extract_braille_letter_parts(block)
     n = 0
     assembly_array = []
     while assembly_array.size < split_lines_by_character_part(block)[0].size
@@ -103,7 +113,11 @@ class Dictionary
       assembly_array << character_assembly
       n += 1
     end
-    assembly_array.flat_map do |character_parts|
+    assembly_array
+  end
+
+  def assemble_braille_letters(block)
+    extract_braille_letter_parts(block).flat_map do |character_parts|
       character_parts.join("\n")
     end
   end
