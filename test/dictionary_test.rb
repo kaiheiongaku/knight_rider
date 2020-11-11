@@ -75,7 +75,7 @@ class DictionaryTest < Minitest::Test
   end
 
   def test_assemble_braille_letters
-    letters = [[".0", ".0"], ["0.", "0."], ["..", ".."]]
+    letters = ".0.0\n0.0.\n...."
     expected = [".0\n0.\n..", ".0\n0.\n.."]
     actual = @dictionary.assemble_braille_letters(letters)
     assert_equal expected, actual
