@@ -69,11 +69,11 @@ class ToEnglishTranslatorTest < Minitest::Test
     translator = ToEnglishTranslator.new(message)
 
     expected = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    actual = translator.convert_multiple_lines_from_braille
+    actual = translator.full_translation
     assert_equal expected, actual
 
     translator = ToEnglishTranslator.new(".0.0\n0.0.\n....")
-    actual = translator.convert_multiple_lines_from_braille
+    actual = translator.full_translation
     assert_equal "ii", actual
   end
 end

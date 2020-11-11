@@ -58,7 +58,7 @@ class ToEnglishTranslator
     end.join
   end
 
-  def convert_multiple_lines_from_braille
+  def full_translation
     split_braille_by_block.map do |block|
       convert_multiple_letters_from_braille(block)
     end.join
