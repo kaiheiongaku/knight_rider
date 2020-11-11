@@ -76,8 +76,8 @@ class Dictionary
     message.delete("\n").scan(/.{1,240}/)
   end
 
-  def split_braille_by_lines(message)
-    message.split("\n")
+  def split_braille_by_lines(block)
+    block.split("\n")
   end
 
   def split_lines_by_character_part(letters)
@@ -86,8 +86,19 @@ class Dictionary
     end
   end
 
-  def assemble_braille_letters(letter_pieces_array)
-    letter_pieces_array
+  def assemble_braille_letters(block)
+    n = 0
+    assembly_array = []
+    while assembly_array.size < split_lines_by_character_part(block)[0].size
+      character_assembly = split_lines_by_character_part(block).map do |line|
+        line[n]
+      end
+      assembly_array << character_assembly
+      n += 1
+    end
+    assembly_array.flat_map do |character_parts|
+      character_parts.join("\n")
+    end
   end
 
 
